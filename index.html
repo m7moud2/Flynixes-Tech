@@ -1265,37 +1265,7 @@
             
             window.addEventListener('scroll', checkScroll);
             window.addEventListener('load', checkScroll);
-            <script>
-document.getElementById("contactForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    const form = this;
-    const formData = new FormData(form);
-
-    document.getElementById("submitText").textContent = "جاري الإرسال...";
-    document.getElementById("loadingSpinner").style.display = "inline-block";
-
-    fetch("send_mail.php", {
-        method: "POST",
-        body: formData
-    }).then(response => {
-        if (response.ok) {
-            document.getElementById("successMessage").style.display = "block";
-            document.getElementById("errorMessage").style.display = "none";
-            form.reset();
-        } else {
-            document.getElementById("errorMessage").style.display = "block";
-            document.getElementById("successMessage").style.display = "none";
-        }
-    }).catch(error => {
-        document.getElementById("errorMessage").style.display = "block";
-        document.getElementById("successMessage").style.display = "none";
-    }).finally(() => {
-        document.getElementById("submitText").textContent = "إرسال الرسالة";
-        document.getElementById("loadingSpinner").style.display = "none";
-    });
-});
-</script>
+            
         </script>
     </body>
     </html>
