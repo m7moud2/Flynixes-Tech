@@ -1,721 +1,831 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Flynixes - حلول برمجية مبتكرة</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="js/main.js">
-    <link rel="stylesheet" href="js/animations.js">
-    <link rel="stylesheet" href="js/api.js">
-    <link rel="stylesheet" href="css/responsive.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLYNIXES TECH - تقنيات متقدمة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            /* FLYNIXES Brand Colors */
+            --primary: #1E88E5;
+            --primary-dark: #1565C0;
+            --primary-darker: #0D47A1;
+            --primary-light: #42A5F5;
+            --secondary: #64B5F6;
+            --accent: #90CAF9;
+            
+            /* Text Colors */
+            --text-light: #E3F2FD;
+            --text-accent: #BBDEFB;
+            --text-dark: #0D47A1;
+            
+            /* Background Colors */
+            --bg-dark: #0A1929;
+            --bg-card: #1A2332;
+            --bg-card-hover: #243447;
+            --bg-light: #E8F4FD;
+            
+            /* Shadow & Effects */
+            --shadow-primary: rgba(30, 136, 229, 0.4);
+            --shadow-dark: rgba(13, 71, 161, 0.3);
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+        }
+
+        .light-mode {
+            --bg-dark: var(--bg-light);
+            --bg-card: #ffffff;
+            --bg-card-hover: #f5f5f5;
+            --text-light: var(--text-dark);
+            --text-accent: #1565C0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 70px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        /* FLYNIXES Logo Component */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            position: relative;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        /* Common Styles */
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px var(--shadow-primary);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-card);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 20px var(--shadow-primary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 0.5rem 2rem;
+            background: rgba(26, 35, 50, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            position: relative;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+            background: rgba(30, 136, 229, 0.1);
+        }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin: 4rem 0;
+            min-height: calc(100vh - 100px);
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--text-accent);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-image {
+            position: relative;
+            text-align: center;
+        }
+
+        .hero-logo {
+            width: 400px;
+            height: 400px;
+            margin: 0 auto;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Section Headers */
+        section {
+            margin-bottom: 6rem;
+            padding-top: 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--text-accent);
+            font-size: 1.1rem;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-item {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px var(--shadow-dark);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-secondary);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .service-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px var(--shadow-primary);
+        }
+
+        .service-item:hover::before {
+            opacity: 0.1;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .service-item h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .service-item p {
+            color: var(--text-accent);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Contact Form */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .contact-form {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px var(--shadow-dark);
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            background: var(--bg-card-hover);
+            color: var(--text-light);
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: var(--bg-dark);
+        }
+
+        .contact-info h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-card);
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            color: var(--text-accent);
+            max-width: 500px;
+            margin: 0 auto 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--bg-card-hover);
+            padding-top: 1rem;
+            color: var(--text-accent);
+        }
+
+        /* Mode Toggle */
+        .mode-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 5px 20px var(--shadow-primary);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .mode-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -300px;
+                width: 280px;
+                height: 100vh;
+                background: var(--bg-card);
+                flex-direction: column;
+                padding: 4rem 2rem;
+                transition: all 0.4s ease;
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-logo {
+                width: 300px;
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-logo {
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
 </head>
 
-
 <body>
-    <header>
+    <!-- Header -->
+    <header id="header">
         <nav>
-            <a href="#" class="logo">
-                <i class="fas fa-code logo-icon"></i>
-                Flynixes
-            </a>
-            <div class="menu-toggle">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <svg width="50" height="50" viewBox="0 0 200 200" fill="none">
+                        <defs>
+                            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#1E88E5"/>
+                                <stop offset="100%" style="stop-color:#42A5F5"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Bird Wings -->
+                        <path d="M50 80 Q30 60 20 40 Q25 35 35 45 Q45 55 60 70 Z" fill="url(#logoGradient)"/>
+                        <path d="M50 80 Q70 60 80 40 Q85 35 95 45 Q85 55 70 70 Z" fill="url(#logoGradient)"/>
+                        <path d="M50 90 Q35 75 25 55 Q30 50 40 60 Q50 70 65 85 Z" fill="url(#logoGradient)"/>
+                        <path d="M50 90 Q65 75 75 55 Q80 50 90 60 Q80 70 65 85 Z" fill="url(#logoGradient)"/>
+                        <!-- Bird Body -->
+                        <ellipse cx="50" cy="95" rx="15" ry="25" fill="url(#logoGradient)"/>
+                        <!-- Bird Head -->
+                        <circle cx="50" cy="70" r="12" fill="url(#logoGradient)"/>
+                        <!-- Bird Beak -->
+                        <path d="M45 65 L35 60 L45 70 Z" fill="url(#logoGradient)"/>
+                    </svg>
+                </div>
+                <div class="logo-text">FLYNIXES TECH</div>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="#home" class="active">الرئيسية</a>
+                <a href="#services">الخدمات</a>
+                <a href="#about">من نحن</a>
+                <a href="#contact">اتصل بنا</a>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <div class="nav-links">
-    <a href="#hero" class="active">الرئيسية</a>
-    <a href="#services">خدماتنا</a>
-    <a href="#portfolio">أعمالنا</a>
-    <a href="#team">فريق العمل</a>
-    <a href="#blog">المدونة</a>
-    <a href="#careers">الوظائف</a>
-    <a href="#contact">تواصل معنا</a>
-</div>
         </nav>
     </header>
 
+    <!-- Main Content -->
     <main>
-        <section class="hero" id="hero">
-            <div class="hero-text animated">
-                <h1>حلول برمجية مبتكرة <br> لنجاح أعمالك</h1>
-                <p>نقدم حلولًا برمجية مخصصة ومبتكرة لمساعدتك في تحقيق أهدافك وتنمية أعمالك بكفاءة وفعالية.</p>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-text fade-in">
+                <h1>مرحباً بك في FLYNIXES TECH</h1>
+                <p>نحن نقدم حلول تقنية متطورة ومبتكرة لتطوير أعمالك ونقلها إلى المستوى التالي. فريقنا المتخصص يعمل على تحويل أفكارك إلى واقع رقمي مذهل.</p>
                 <div class="cta-buttons">
-                    <a href="#services" class="btn btn-primary">اكتشف خدماتنا</a>
+                    <a href="#services" class="btn btn-primary">استكشف خدماتنا</a>
                     <a href="#contact" class="btn btn-outline">تواصل معنا</a>
                 </div>
             </div>
-            
+            <div class="hero-image fade-in delay-1">
+                <div class="hero-logo">
+                    <svg width="100%" height="100%" viewBox="0 0 400 400" fill="none">
+                        <defs>
+                            <linearGradient id="heroGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#1E88E5"/>
+                                <stop offset="50%" style="stop-color:#42A5F5"/>
+                                <stop offset="100%" style="stop-color:#64B5F6"/>
+                            </linearGradient>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        <!-- Main Bird -->
+                        <g filter="url(#glow)">
+                            <!-- Left Wing -->
+                            <path d="M120 200 Q80 150 60 100 Q70 90 90 120 Q110 150 140 180 Z" fill="url(#heroGradient)" opacity="0.9"/>
+                            <path d="M120 220 Q85 175 65 125 Q75 115 95 145 Q115 175 145 205 Z" fill="url(#heroGradient)" opacity="0.7"/>
+                            
+                            <!-- Right Wing -->
+                            <path d="M200 200 Q240 150 260 100 Q250 90 230 120 Q210 150 180 180 Z" fill="url(#heroGradient)" opacity="0.9"/>
+                            <path d="M200 220 Q235 175 255 125 Q245 115 225 145 Q205 175 175 205 Z" fill="url(#heroGradient)" opacity="0.7"/>
+                            
+                            <!-- Body -->
+                            <ellipse cx="200" cy="230" rx="25" ry="45" fill="url(#heroGradient)"/>
+                            
+                            <!-- Head -->
+                            <circle cx="200" cy="170" r="20" fill="url(#heroGradient)"/>
+                            
+                            <!-- Beak -->
+                            <path d="M185 160 L160 150 L185 175 Z" fill="url(#heroGradient)"/>
+                            
+                            <!-- Eye -->
+                            <circle cx="190" cy="165" r="3" fill="white"/>
+                        </g>
+                        
+                        <!-- Tech Elements -->
+                        <g opacity="0.3">
+                            <circle cx="100" cy="100" r="2" fill="#42A5F5">
+                                <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="300" cy="120" r="2" fill="#64B5F6">
+                                <animate attributeName="opacity" values="0.3;1;0.3" dur="2.5s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="80" cy="300" r="2" fill="#90CAF9">
+                                <animate attributeName="opacity" values="0.3;1;0.3" dur="3s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="320" cy="280" r="2" fill="#1E88E5">
+                                <animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" repeatCount="indefinite"/>
+                            </circle>
+                        </g>
+                    </svg>
+                </div>
+            </div>
         </section>
 
-        <section id="services" class="section">
-            <div class="section-header animated">
+        <!-- Services Section -->
+        <section id="services">
+            <div class="section-header fade-in">
                 <h2>خدماتنا</h2>
-                <p>نقدم مجموعة واسعة من الخدمات البرمجية لتلبية احتياجات عملك المتنوعة.</p>
+                <p>نقدم مجموعة شاملة من الحلول التقنية المتطورة</p>
             </div>
             <div class="services-grid">
-                <div class="service-item animated delay-1">
+                <div class="service-item fade-in delay-1">
                     <div class="service-icon">
                         <i class="fas fa-code"></i>
                     </div>
-                    <h3>تطوير الويب</h3>
-                    <p>تصميم وتطوير مواقع ويب حديثة ومتجاوبة تلبي أعلى المعايير.</p>
-                    <a href="#" class="btn-link">اقرأ المزيد</a>
+                    <h3>تطوير المواقع</h3>
+                    <p>تصميم وتطوير مواقع احترافية وسريعة الاستجابة باستخدام أحدث التقنيات</p>
                 </div>
-                <div class="service-item animated delay-2">
+                <div class="service-item fade-in delay-2">
                     <div class="service-icon">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
-                    <h3>تطوير تطبيقات الجوال</h3>
-                    <p>إنشاء تطبيقات جوال مبتكرة وسهلة الاستخدام لأنظمة iOS و Android.</p>
-                    <a href="#" class="btn-link">اقرأ المزيد</a>
+                    <h3>تطبيقات الجوال</h3>
+                    <p>تطوير تطبيقات جوال متطورة لأنظمة iOS و Android</p>
                 </div>
-                <div class="service-item animated delay-3">
-                    <div class="service-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>تطوير قواعد البيانات</h3>
-                    <p>تصميم وتنفيذ وإدارة قواعد بيانات فعالة وآمنة.</p>
-                    <a href="#" class="btn-link">اقرأ المزيد</a>
-                </div>
-                <div class="service-item animated delay-1">
+                <div class="service-item fade-in delay-3">
                     <div class="service-icon">
                         <i class="fas fa-cloud"></i>
                     </div>
-                    <h3>الحوسبة السحابية</h3>
-                    <p>حلول سحابية مرنة وقابلة للتوسع لتحسين أداء عملك.</p>
-                    <a href="#" class="btn-link">اقرأ المزيد</a>
-                </div>
-                <div class="service-item animated delay-2">
-                    <div class="service-icon">
-                        <i class="fas fa-paint-brush"></i>
-                    </div>
-                    <h3>تصميم UX/UI</h3>
-                    <p>تصميم تجارب مستخدم فريدة وواجهات مستخدم جذابة وسهلة الاستخدام.</p>
-                    <a href="#" class="btn-link">اقرأ المزيد</a>
-                </div>
-                <div class="service-item animated delay-3">
-                    <div class="service-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>تحليل البيانات</h3>
-                    <p>تحليل البيانات وتقديم رؤى قيمة لاتخاذ قرارات مستنيرة.</p>
-                    <a href="#" class="btn-link">اقرأ المزيد</a>
+                    <h3>الحلول السحابية</h3>
+                    <p>خدمات البنية التحتية السحابية والحوسبة السحابية</p>
                 </div>
             </div>
         </section>
 
-        <section id="portfolio" class="section">
-            <div class="section-header animated">
-                <h2>أعمالنا</h2>
-                <p>نلقي نظرة على بعض المشاريع التي قمنا بتنفيذها بنجاح لعملائنا الكرام.</p>
-            </div>
-            <div class="portfolio-filter animated delay-1">
-                <button class="active" data-filter="all">الكل</button>
-                <button data-filter="web">تطوير الويب</button>
-                <button data-filter="mobile">تطبيقات الجوال</button>
-                <button data-filter="design">تصميم</button>
-            </div>
-            <div class="portfolio-grid">
-                <div class="portfolio-item animated delay-2" data-category="web">
-                    <div class="portfolio-image">
-                        <img src="https://via://via.placeholder.com/400x300/60a5fa/fff?Text=Web%20Project%201" alt="Web Project 1">
-                        <div class="portfolio-overlay">
-                            <div class="portfolio-overlay-content">
-                                <a href="#"><i class="fas fa-eye"></i></a>
-                                <a href="#"><i class="fas fa-link"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="portfolio-content">
-                        <h3>مشروع ويب 1</h3>
-                        <p>وصف موجز للمشروع.</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">ويب</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-item animated delay-3" data-category="mobile">
-                    <div class="portfolio-image">
-                        <img src="https://via.placeholder.com/400x300/38bdf8/fff?Text=Mobile%20App%201" alt="Mobile App 1">
-                        <div class="portfolio-overlay">
-                            <div class="portfolio-overlay-content">
-                                <a href="#"><i class="fas fa-eye"></i></a>
-                                <a href="#"><i class="fas fa-link"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="portfolio-content">
-                        <h3>تطبيق جوال 1</h3>
-                        <p>وصف موجز للتطبيق.</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">جوال</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-item animated delay-2" data-category="design">
-                    <div class="portfolio-image">
-                        <img src="https://via.placeholder.com/400x300/a5b4fc/fff?Text=Design%20Project%201" alt="Design Project 1">
-                        <div class="portfolio-overlay">
-                            <div class="portfolio-overlay-content">
-                                <a href="#"><i class="fas fa-eye"></i></a>
-                                <a href="#"><i class="fas fa-link"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="portfolio-content">
-                        <h3>تصميم 1</h3>
-                        <p>وصف موجز للتصميم.</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">تصميم</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-item animated delay-3" data-category="web">
-                    <div class="portfolio-image">
-                        <img src="https://via.placeholder.com/400x300/60a5fa/fff?Text=Web%20Project%202" alt="Web Project 2">
-                        <div class="portfolio-overlay">
-                            <div class="portfolio-overlay-content">
-                                <a href="#"><i class="fas fa-eye"></i></a>
-                                <a href="#"><i class="fas fa-link"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="portfolio-content">
-                        <h3>مشروع ويب 2</h3>
-                        <p>وصف موجز للمشروع.</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">ويب</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-item animated delay-2" data-category="mobile">
-                    <div class="portfolio-image">
-                        <img src="https://via.placeholder.com/400x300/38bdf8/fff?Text=Mobile%20App%202" alt="Mobile App 2">
-                        <div class="portfolio-overlay">
-                            <div class="portfolio-overlay-content">
-                                <a href="#"><i class="fas fa-eye"></i></a>
-                                <a href="#"><i class="fas fa-link"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="portfolio-content">
-                        <h3>تطبيق جوال 2</h3>
-                        <p>وصف موجز للتطبيق.</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">جوال</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-item animated delay-3" data-category="design">
-                    <div class="portfolio-image">
-                        <img src="https://via.placeholder.com/400x300/a5b4fc/fff?Text=Design%20Project%202" alt="Design Project 2">
-                        <div class="portfolio-overlay">
-                            <div class="portfolio-overlay-content">
-                                <a href="#"><i class="fas fa-eye"></i></a>
-                                <a href="#"><i class="fas fa-link"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="portfolio-content">
-                        <h3>تصميم 2</h3>
-                        <p>وصف موجز للتصميم.</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">تصميم</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="clients section">
-            <div class="section-header animated">
-                <h2>عملاؤنا</h2>
-                <p>نحن فخورون بالعمل مع مجموعة متنوعة من العملاء المميزين.</p>
-            </div>
-            <div class="clients-list animated delay-1">
-                <img src="https://via.placeholder.com/150x50/eee/000?Text=Client%201" alt="Client 1" class="client-item">
-                <img src="https://via.placeholder.com/150x50/ddd/000?Text=Client%202" alt="Client 2" class="client-item">
-                <img src="https://via.placeholder.com/150x50/ccc/000?Text=Client%203" alt="Client 3" class="client-item">
-                <img src="https://via.placeholder.com/150x50/bbb/000?Text=Client%204" alt="Client 4" class="client-item">
-                <img src="https://via.placeholder.com/150x50/aaa/000?Text=Client%205" alt="Client 5" class="client-item">
-            </div>
-        </section>
-
-        <section class="stats-section animated">
-            <div class="stats-container">
-                <div class="stats">
-                    <div class="stat-item animated delay-1">
-                        <div class="stat-value">100+</div>
-                        <div class="stat-label">مشاريع مكتملة</div>
-                    </div>
-                    <div class="stat-item animated delay-2">
-                        <div class="stat-value">50+</div>
-                        <div class="stat-label">عملاء سعداء</div>
-                    </div>
-                    <div class="stat-item animated delay-3">
-                        <div class="stat-value">10+</div>
-                        <div class="stat-label">سنوات الخبرة</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="team" class="section animated">
-    <div class="section-header">
-        <h2>فريق العمل</h2>
-        <p>تعرف على فريقنا الموهوب والمتخصص الذي يقف وراء نجاحاتنا.</p>
-    </div>
-    
-    <div class="team-grid">
-        <div class="team-member">
-            <div class="team-photo-wrapper">
-                <img src="https://via.placeholder.com/150x150/38bdf8/fff?Text=Team%20Member%201" alt="Team Member 1" class="team-photo">
-            </div>
-            <div class="team-info">
-                <h3 class="team-name">اسم العضو 1</h3>
-                <p class="team-role">المطور الرئيسي</p>
-                <p class="team-bio">نبذة مختصرة عن العضو واهتماماته وخبراته.</p>
-                <div class="team-social">
-                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                    </div>
-            </div>
-        </div>
-        
-        <div class="team-member">
-            <div class="team-photo-wrapper">
-                <img src="https://via.placeholder.com/150x150/60a5fa/fff?Text=Team%20Member%202" alt="Team Member 2" class="team-photo">
-            </div>
-            <div class="team-info">
-                <h3 class="team-name">اسم العضو 2</h3>
-                <p class="team-role">مصمم UX/UI</p>
-                <p class="team-bio">نبذة مختصرة عن العضو واهتماماته وخبراته.</p>
-                <div class="team-social">
-                    <a href="#" class="social-link"><i class="fab fa-behance"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-dribbble"></i></a>
-                    </div>
-            </div>
-        </div>
-        
-        <div class="team-member">
-            <div class="team-photo-wrapper">
-                <img src="https://via.placeholder.com/150x150/a5b4fc/fff?Text=Team%20Member%203" alt="Team Member 3" class="team-photo">
-            </div>
-            <div class="team-info">
-                <h3 class="team-name">اسم العضو 3</h3>
-                <p class="team-role">مدير المشروع</p>
-                <p class="team-bio">نبذة مختصرة عن العضو واهتماماته وخبراته.</p>
-                <div class="team-social">
-                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                    </div>
-            </div>
-        </div>
-        
-        </div>
-</section>
-       <section class="testimonial-section section animated">
-    <div class="section-header">
-        <h2>آراء العملاء</h2>
-        <p>ماذا يقول عملاؤنا عن تجربتهم معنا؟</p>
-    </div>
-    
-    <div class="testimonial-slider">
-        <div class="testimonial-card">
-            <p class="testimonial-text">"فريق Flynixes قدم لنا حلول برمجية ممتازة ساهمت بشكل كبير في تطوير أعمالنا. نحن ممتنون لجهودهم واحترافيتهم."</p>
-            <div class="testimonial-author">
-                <img src="https://via.placeholder.com/50x50/38bdf8/fff?Text=User" alt="User" class="testimonial-author-img">
-                <div class="testimonial-author-info">
-                    <h4>اسم العميل 1</h4>
-                    <p class="testimonial-company">الشركة أ</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="testimonial-card">
-            <p class="testimonial-text">"كان العمل مع Flynixes تجربة رائعة. لقد فهموا احتياجاتنا تمامًا وقدموا لنا حلاً برمجيًا مبتكرًا وفعالًا."</p>
-            <div class="testimonial-author">
-                <img src="https://via.placeholder.com/50x50/60a5fa/fff?Text=User" alt="User" class="testimonial-author-img">
-                <div class="testimonial-author-info">
-                    <h4>اسم العميل 2</h4>
-                    <p class="testimonial-company">الشركة ب</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="testimonial-card">
-            <p class="testimonial-text">"نوصي بشدة بفريق Flynixes لأي شخص يبحث عن حلول برمجية احترافية وموثوقة. لقد تجاوزوا توقعاتنا."</p>
-            <div class="testimonial-author">
-                <img src="https://via.placeholder.com/50x50/a5b4fc/fff?Text=User" alt="User" class="testimonial-author-img">
-                <div class="testimonial-author-info">
-                    <h4>اسم العميل 3</h4>
-                    <p class="testimonial-company">الشركة ج</p>
-                </div>
-            </div>
-        </div>
-        
-        </div>
-    
-    <div class="testimonial-navigation">
-        <button class="testimonial-nav-button prev-btn"><i class="fas fa-chevron-left"></i></button>
-        <div class="testimonial-dots">
-            <button class="testimonial-dot active"></button>
-            <button class="testimonial-dot"></button>
-            <button class="testimonial-dot"></button>
-        </div>
-        <button class="testimonial-nav-button next-btn"><i class="fas fa-chevron-right"></i></button>
-    </div>
-</section>
-      <!-- أضف هذا القسم بعد قسم العملاء -->
-<section id="partners" class="section animated">
-    <div class="section-header">
-        <h2>شركاؤنا</h2>
-        <p>نحن نعمل مع أفضل الشركاء لتقديم حلول متكاملة لعملائنا</p>
-    </div>
-    
-    <div class="partners-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 2rem; align-items: center;">
-        <div class="partner-item" style="text-align: center; padding: 1.5rem; background-color: var(--bg-card); border-radius: 8px; transition: all 0.3s ease;">
-            <img src="https://via.placeholder.com/150x80/334155/fff?Text=Partner%201" alt="Partner 1" style="max-width: 100%; height: auto; filter: grayscale(100%) brightness(0) invert(1); opacity: 0.8; transition: all 0.3s ease;">
-        </div>
-        <div class="partner-item" style="text-align: center; padding: 1.5rem; background-color: var(--bg-card); border-radius: 8px; transition: all 0.3s ease;">
-            <img src="https://via.placeholder.com/150x80/334155/fff?Text=Partner%202" alt="Partner 2" style="max-width: 100%; height: auto; filter: grayscale(100%) brightness(0) invert(1); opacity: 0.8; transition: all 0.3s ease;">
-        </div>
-        <div class="partner-item" style="text-align: center; padding: 1.5rem; background-color: var(--bg-card); border-radius: 8px; transition: all 0.3s ease;">
-            <img src="https://via.placeholder.com/150x80/334155/fff?Text=Partner%203" alt="Partner 3" style="max-width: 100%; height: auto; filter: grayscale(100%) brightness(0) invert(1); opacity: 0.8; transition: all 0.3s ease;">
-        </div>
-        <div class="partner-item" style="text-align: center; padding: 1.5rem; background-color: var(--bg-card); border-radius: 8px; transition: all 0.3s ease;">
-            <img src="https://via.placeholder.com/150x80/334155/fff?Text=Partner%204" alt="Partner 4" style="max-width: 100%; height: auto; filter: grayscale(100%) brightness(0) invert(1); opacity: 0.8; transition: all 0.3s ease;">
-        </div>
-        <div class="partner-item" style="text-align: center; padding: 1.5rem; background-color: var(--bg-card); border-radius: 8px; transition: all 0.3s ease;">
-            <img src="https://via.placeholder.com/150x80/334155/fff?Text=Partner%205" alt="Partner 5" style="max-width: 100%; height: auto; filter: grayscale(100%) brightness(0) invert(1); opacity: 0.8; transition: all 0.3s ease;">
-        </div>
-    </div>
-</section>
-<!-- أضف هذا القسم بعد قسم FAQ وقبل قسم النشرة الإخبارية -->
-<section id="careers" class="section animated">
-    <div class="section-header">
-        <h2>الوظائف</h2>
-        <p>انضم إلى فريقنا المتميز وساهم في بناء حلول برمجية مبتكرة</p>
-    </div>
-    
-    <div class="jobs-container" style="max-width: 800px; margin: 0 auto;">
-        <div class="job-item" style="background-color: var(--bg-card); padding: 2rem; border-radius: 12px; margin-bottom: 1.5rem; transition: all 0.3s ease;">
-            <h3 style="color: var(--primary); margin-bottom: 1rem;">مطور ويب (Frontend)</h3>
-            <div style="display: flex; gap: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
-                <span style="background-color: rgba(14, 165, 233, 0.2); color: var(--primary); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem;">دوام كامل</span>
-                <span style="background-color: rgba(14, 165, 233, 0.2); color: var(--primary); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem;">عن بُعد</span>
-                <span style="background-color: rgba(14, 165, 233, 0.2); color: var(--primary); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem;">خبرة 2+ سنوات</span>
-            </div>
-            <p style="color: var(--text-accent); margin-bottom: 1.5rem;">نبحث عن مطور ويب مبدع ومتمرس في تقنيات Frontend الحديثة للانضمام إلى فريقنا.</p>
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-                <a href="#apply-job" class="btn btn-outline" style="margin: 0;">تقديم الآن</a>
-                <a href="#" class="btn-link" style="color: var(--primary); font-weight: 600;">عرض التفاصيل <i class="fas fa-chevron-left" style="margin-right: 5px;"></i></a>
-            </div>
-        </div>
-        
-        <div class="job-item" style="background-color: var(--bg-card); padding: 2rem; border-radius: 12px; margin-bottom: 1.5rem; transition: all 0.3s ease;">
-            <h3 style="color: var(--primary); margin-bottom: 1rem;">مصمم UX/UI</h3>
-            <div style="display: flex; gap: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
-                <span style="background-color: rgba(14, 165, 233, 0.2); color: var(--primary); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem;">دوام جزئي</span>
-                <span style="background-color: rgba(14, 165, 233, 0.2); color: var(--primary); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem;">هجين</span>
-                <span style="background-color: rgba(14, 165, 233, 0.2); color: var(--primary); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem;">خبرة 1+ سنوات</span>
-            </div>
-            <p style="color: var(--text-accent); margin-bottom: 1.5rem;">نبحث عن مصمم موهوب لإنشاء تجارب مستخدم مميزة وواجهات مستخدم جذابة.</p>
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-                <a href="#apply-job" class="btn btn-outline" style="margin: 0;">تقديم الآن</a>
-                <a href="#" class="btn-link" style="color: var(--primary); font-weight: 600;">عرض التفاصيل <i class="fas fa-chevron-left" style="margin-right: 5px;"></i></a>
-            </div>
-        </div>
-        
-        <div class="job-item" style="background-color: var(--bg-card); padding: 2rem; border-radius: 12px; margin-bottom: 1.5rem; transition: all 0.3s ease;">
-            <h3 style="color: var(--primary); margin-bottom: 1rem;">مطور تطبيقات جوال (Flutter)</h3>
-            <div style="display: flex; gap: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
-                <span style="background-color: rgba(14, 165, 233, 0.2); color: var(--primary); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem;">دوام كامل</span>
-                <span style="background-color: rgba(14, 165, 233, 0.2); color: var(--primary); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem;">في المقر</span>
-                <span style="background-color: rgba(14, 165, 233, 0.2); color: var(--primary); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem;">خبرة 3+ سنوات</span>
-            </div>
-            <p style="color: var(--text-accent); margin-bottom: 1.5rem;">نبحث عن مطور Flutter لبناء تطبيقات جوال عالية الجودة لأنظمة iOS و Android.</p>
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-                <a href="#apply-job" class="btn btn-outline" style="margin: 0;">تقديم الآن</a>
-                <a href="#" class="btn-link" style="color: var(--primary); font-weight: 600;">عرض التفاصيل <i class="fas fa-chevron-left" style="margin-right: 5px;"></i></a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- نموذج التقديم على الوظائف -->
-<section id="apply-job" class="section animated" style="background-color: var(--bg-card); padding: 4rem 0; margin: 4rem 0; border-radius: 12px;">
-    <div class="section-header">
-        <h2>تقديم على الوظيفة</h2>
-        <p>املأ النموذج التالي لتقديم طلبك للوظيفة</p>
-    </div>
-    
-    <form class="contact-form" style="max-width: 700px; margin: 0 auto;">
-        <div class="form-row">
-            <label for="job-name">الاسم بالكامل</label>
-            <input type="text" id="job-name" name="job-name" required>
-        </div>
-        <div class="form-row">
-            <label for="job-email">البريد الإلكتروني</label>
-            <input type="email" id="job-email" name="job-email" required>
-        </div>
-        <div class="form-row">
-            <label for="job-phone">رقم الهاتف</label>
-            <input type="tel" id="job-phone" name="job-phone" required>
-        </div>
-        <div class="form-row">
-            <label for="job-position">الوظيفة المتقدم لها</label>
-            <input type="text" id="job-position" name="job-position" required>
-        </div>
-        <label for="job-cv">السيرة الذاتية (PDF فقط)</label>
-        <input type="file" id="job-cv" name="job-cv" accept=".pdf" required style="margin-bottom: 1.5rem;">
-        
-        <label for="job-message">رسالة التقديم (اختياري)</label>
-        <textarea id="job-message" name="job-message" rows="5"></textarea>
-        
-        <button type="submit" class="btn btn-primary">إرسال الطلب</button>
-    </form>
-</section>
-      <!-- أضف هذا القسم بعد قسم الوظائف -->
-<section id="blog" class="section animated">
-    <div class="section-header">
-        <h2>مدونة Flynixes</h2>
-        <p>آخر المقالات والأخبار التقنية من فريقنا</p>
-    </div>
-    
-    <div class="blog-grid">
-        <div class="blog-post">
-            <div class="blog-image">
-                <img src="https://via.placeholder.com/400x200/38bdf8/fff?Text=Blog%201" alt="Blog Post 1">
-            </div>
-            <div class="blog-content">
-                <div class="blog-meta">
-                    <span class="blog-date"><i class="far fa-calendar-alt"></i> 15 مايو 2025</span>
-                    <span class="blog-author"><i class="far fa-user"></i> فريق Flynixes</span>
-                </div>
-                <h3 class="blog-title">أحدث اتجاهات تطوير الويب في 2025</h3>
-                <p class="blog-excerpt">استكشاف أحدث التقنيات والاتجاهات في مجال تطوير الويب لهذا العام.</p>
-                <a href="#" class="btn-link">اقرأ المزيد</a>
-            </div>
-        </div>
-        
-        <div class="blog-post">
-            <div class="blog-image">
-                <img src="https://via.placeholder.com/400x200/60a5fa/fff?Text=Blog%202" alt="Blog Post 2">
-            </div>
-            <div class="blog-content">
-                <div class="blog-meta">
-                    <span class="blog-date"><i class="far fa-calendar-alt"></i> 10 مايو 2025</span>
-                    <span class="blog-author"><i class="far fa-user"></i> فريق Flynixes</span>
-                </div>
-                <h3 class="blog-title">كيفية تحسين أداء تطبيقات الجوال</h3>
-                <p class="blog-excerpt">نصائح وتقنيات لتحسين أداء تطبيقات الجوال وتجربة المستخدم.</p>
-                <a href="#" class="btn-link">اقرأ المزيد</a>
-            </div>
-        </div>
-        
-        <div class="blog-post">
-            <div class="blog-image">
-                <img src="https://via.placeholder.com/400x200/a5b4fc/fff?Text=Blog%203" alt="Blog Post 3">
-            </div>
-            <div class="blog-content">
-                <div class="blog-meta">
-                    <span class="blog-date"><i class="far fa-calendar-alt"></i> 5 مايو 2025</span>
-                    <span class="blog-author"><i class="far fa-user"></i> فريق Flynixes</span>
-                </div>
-                <h3 class="blog-title">أهمية أمن المعلومات في التطبيقات</h3>
-                <p class="blog-excerpt">دليل شامل لحماية تطبيقاتك وبيانات مستخدميك من التهديدات الأمنية.</p>
-                <a href="#" class="btn-link">اقرأ المزيد</a>
-            </div>
-        </div>
-        
-        </div>
-    
-    <div class="blog-actions">
-        <a href="#" class="btn btn-outline">عرض جميع المقالات</a>
-    </div>
-</section>
-       <section class="faq-section section animated">
-    <div class="section-header">
-        <h2>أسئلة شائعة</h2>
-        <p>إجابات لبعض الأسئلة التي قد تدور في ذهنك.</p>
-    </div>
-    
-    <div class="faq-container">
-        <div class="faq-item">
-            <button class="faq-question">
-                ما هي أنواع الخدمات التي تقدمونها؟
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="faq-answer">
-                <p>نقدم خدمات تطوير الويب، تطوير تطبيقات الجوال، تطوير قواعد البيانات، الحوسبة السحابية، تصميم UX/UI، وتحليل البيانات.</p>
-            </div>
-        </div>
-        
-        <div class="faq-item">
-            <button class="faq-question">
-                ما هي عملية العمل معكم؟
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="faq-answer">
-                <p>تبدأ عمليتنا بفهم متطلباتك وأهدافك، ثم ننتقل إلى مرحلة التصميم والتطوير، وبعد ذلك الاختبار والنشر، وأخيرًا الدعم والصيانة.</p>
-            </div>
-        </div>
-        
-        <div class="faq-item">
-            <button class="faq-question">
-                كم تستغرق مدة المشروع؟
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="faq-answer">
-                <p>تختلف مدة المشروع بناءً على تعقيده وحجمه. نقدم لك تقديرًا تفصيليًا للوقت بعد مناقشة متطلباتك.</p>
-            </div>
-        </div>
-        
-        <div class="faq-item">
-            <button class="faq-question">
-                ما هي تكلفة خدماتكم؟
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="faq-answer">
-                <p>تعتمد تكلفة خدماتنا على نطاق المشروع ومتطلباته الخاصة. تواصل معنا للحصول على عرض سعر مخصص.</p>
-            </div>
-        </div>
-        
-        </div>
-</section>
-
-        <section class="newsletter-section animated">
-            <div class="newsletter-bg"></div>
-            <div class="newsletter-container">
-                <div class="newsletter-content">
-                    <h3>اشترك في نشرتنا الإخبارية</h3>
-                    <p>ابق على اطلاع دائم بآخر الأخبار والتحديثات والعروض الخاصة بنا.</p>
-                </div>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="أدخل بريدك الإلكتروني">
-                    <button type="submit" class="btn btn-primary">اشتراك</button>
-                </form>
-            </div>
-        </section>
-
-        <section id="contact" class="section">
-            <div class="section-header animated">
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="section-header fade-in">
                 <h2>تواصل معنا</h2>
-                <p>يسعدنا تواصلك واستفساراتك. لا تتردد في مراسلتنا.</p>
+                <p>نحن هنا لمساعدتك في تحقيق أهدافك التقنية</p>
             </div>
-            <div class="contact-container animated delay-1">
-                <div class="contact-info">
+            <div class="contact-container">
+                <div class="contact-info fade-in">
                     <h3>معلومات الاتصال</h3>
-                    <div class="contact-details">
-                        <div class="contact-detail">
-                            <i class="fas fa-map-marker-alt contact-icon"></i>
-                            <div class="contact-text">
-                                <h4>العنوان</h4>
-                                <p>6 أكتوبر، الجيزة، مصر</p>
-                            </div>
-                        </div>
-                        <div class="contact-detail">
-                            <i class="fas fa-envelope contact-icon"></i>
-                            <div class="contact-text">
-                                <h4>البريد الإلكتروني</h4>
-                                <p>info@flynixes.com</p>
-                            </div>
-                        </div>
-                        <div class="contact-detail">
-                            <i class="fas fa-phone contact-icon"></i>
-                            <div class="contact-text">
-                                <h4>الهاتف</h4>
-                                <p>+20 123 456 7890</p>
-                            </div>
-                        </div>
+                    <p>تواصل معنا وسنكون سعداء للإجابة على استفساراتك</p>
+                    <div style="margin: 2rem 0;">
+                        <p><i class="fas fa-envelope" style="color: var(--primary); margin-left: 0.5rem;"></i> info@flynixestech.com</p>
+                        <p><i class="fas fa-phone" style="color: var(--primary); margin-left: 0.5rem;"></i> +966 XX XXX XXXX</p>
+                        <p><i class="fas fa-map-marker-alt" style="color: var(--primary); margin-left: 0.5rem;"></i> الرياض، المملكة العربية السعودية</p>
                     </div>
-                    <h3>تابعنا على وسائل التواصل</h3>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                    </div>
-                </div><form class="contact-form">
-                    <h3>أرسل لنا رسالة</h3>
-                    <div class="form-row">
-                        <label for="name">الاسم</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-row">
-                        <label for="email">البريد الإلكتروني</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <label for="subject">الموضوع</label>
-                    <input type="text" id="subject" name="subject" required>
-                    <label for="message">الرسالة</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
-                    <button type="submit" class="btn btn-primary">إرسال الرسالة</button>
+                </div>
+                <form class="contact-form fade-in delay-1">
+                    <input type="text" placeholder="الاسم الكامل" required>
+                    <input type="email" placeholder="البريد الإلكتروني" required>
+                    <input type="text" placeholder="الموضوع" required>
+                    <textarea rows="5" placeholder="رسالتك" required></textarea>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">إرسال الرسالة</button>
                 </form>
             </div>
         </section>
     </main>
 
+    <!-- Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-content">
-                <div class="footer-col footer-about">
-                    <h3>Flynixes</h3>
-                    <p>حلول برمجية مبتكرة لنجاح أعمالك. نقدم خدمات تطوير الويب وتطبيقات الجوال والتصميم وغيرها.</p>
-                </div>
-                <div class="footer-col footer-links">
-                    <h3>روابط سريعة</h3>
-                    <ul>
-                        <li><a href="#hero">الرئيسية</a></li>
-                        <li><a href="#services">خدماتنا</a></li>
-                        <li><a href="#portfolio">أعمالنا</a></li>
-                        <li><a href="#team">فريق العمل</a></li>
-                        <li><a href="#contact">تواصل معنا</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col footer-contact">
-                    <h3>معلومات الاتصال</h3>
-                    <div class="footer-contact-item">
-                        <i class="fas fa-map-marker-alt footer-contact-icon"></i>
-                        <p>6 أكتوبر، الجيزة، مصر</p>
-                    </div>
-                    <div class="footer-contact-item">
-                        <i class="fas fa-envelope footer-contact-icon"></i>
-                        <p>info@flynixes.com</p>
-                    </div>
-                    <div class="footer-contact-item">
-                        <i class="fas fa-phone footer-contact-icon"></i>
-                        <p>+20 123 456 7890</p>
+                <div class="footer-logo">
+                    <div class="logo-container">
+                        <div class="logo-icon">
+                            <svg width="40" height="40" viewBox="0 0 200 200" fill="none">
+                                <defs>
+                                    <linearGradient id="footerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#1E88E5"/>
+                                        <stop offset="100%" style="stop-color:#42A5F5"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M50 80 Q30 60 20 40 Q25 35 35 45 Q45 55 60 70 Z" fill="url(#footerGradient)"/>
+                                <path d="M50 80 Q70 60 80 40 Q85 35 95 45 Q85 55 70 70 Z" fill="url(#footerGradient)"/>
+                                <path d="M50 90 Q35 75 25 55 Q30 50 40 60 Q50 70 65 85 Z" fill="url(#footerGradient)"/>
+                                <path d="M50 90 Q65 75 75 55 Q80 50 90 60 Q80 70 65 85 Z" fill="url(#footerGradient)"/>
+                                <ellipse cx="50" cy="95" rx="15" ry="25" fill="url(#footerGradient)"/>
+                                <circle cx="50" cy="70" r="12" fill="url(#footerGradient)"/>
+                                <path d="M45 65 L35 60 L45 70 Z" fill="url(#footerGradient)"/>
+                            </svg>
+                        </div>
+                        <div class="logo-text" style="font-size: 1.5rem;">FLYNIXES TECH</div>
                     </div>
                 </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Flynixes - جميع الحقوق محفوظة.</p>
+                <p class="footer-text">نحن نؤمن بقوة التكنولوجيا في تغيير العالم، ونعمل على تقديم حلول مبتكرة تساعد عملاءنا على تحقيق النجاح.</p>
                 <div class="social-links">
                     <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                     <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
                 </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FLYNIXES TECH. جميع الحقوق محفوظة.</p>
             </div>
         </div>
     </footer>
 
-    <button class="back-to-top">
-        <i class="fas fa-arrow-up"></i>
+    <!-- Mode Toggle Button -->
+    <button class="mode-toggle" id="modeToggle">
+        <i class="fas fa-sun"></i>
     </button>
 
-    <div class="dark-mode-toggle">
-        <i class="fas fa-moon"></i>
-    </div>
-</body>
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
 
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    navLinks.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                }
+            });
+        });
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mode Toggle
+        const modeToggle = document.getElementById('modeToggle');
+        let isLightMode = false;
+
+        modeToggle.addEventListener('click', () => {
+            isLightMode = !isLightMode;
+            document.body.classList.toggle('light-mode', isLightMode);
+            
+            const icon = modeToggle.querySelector('i');
+            if (isLightMode) {
+                icon.className = 'fas fa-moon';
+            } else {
+                icon.className = 'fas fa-sun';
+            }
+        });
+
+        // Form Submission
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('شكراً لتواصلك معنا! سنرد عليك قريباً.');
+        });
+
+        // Animation on Scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Initially hide elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
 </html>
-    
